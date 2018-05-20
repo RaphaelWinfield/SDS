@@ -3,8 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.raphaelwinfield.sixdegreesofseparation.ContactList">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="Search"
+        app:showAsAction="always"  />
+    <item
+        android:id="@+id/action_yellow_pages"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="Yellow Pages"
         app:showAsAction="never" />
 </menu>

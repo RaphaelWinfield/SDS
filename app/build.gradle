@@ -20,6 +20,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    sourceSets {
+        main {
+            jniLibs.srcDir 'libs'
+            //说明so的路径为该libs路径，关联所有地图SDK的so文件
+        }
+    }
 }
 
 dependencies {
@@ -28,8 +34,11 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support:cardview-v7:27.1.1'
     implementation 'org.litepal.android:core:1.6.1'
     implementation 'com.facebook.stetho:stetho:1.5.0'
+    implementation 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.3.0'
+    implementation files('libs/BaiduLBS_Android.jar')
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

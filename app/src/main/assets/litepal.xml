@@ -3,6 +3,6 @@
     <dbname value="SDSdb"></dbname>
     <version value="1"></version>
     <list>
-        <mapping class= ""/>
+        <mapping class= "com.example.raphaelwinfield.sixdegreesofseparation.db.Contact"/>
     </list>
 </litepal>
