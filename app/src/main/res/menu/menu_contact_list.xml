@@ -8,8 +8,23 @@
         android:title="Search"
         app:showAsAction="always"  />
     <item
-        android:id="@+id/action_yellow_pages"
+    android:id="@+id/action_yellow_pages"
+    android:orderInCategory="100"
+    android:title="Yellow Pages"
+    app:showAsAction="never" />
+    <item
+        android:id="@+id/action_save"
         android:orderInCategory="100"
-        android:title="Yellow Pages"
+        android:title="Save"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_load"
+        android:orderInCategory="100"
+        android:title="Load"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_delete_all"
+        android:orderInCategory="100"
+        android:title="Delete All"
         app:showAsAction="never" />
 </menu>

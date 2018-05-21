@@ -78,8 +78,6 @@ public class EditContact extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         switch(id) {
             case R.id.ic_done:
-
-
                 if ( mContact.getContactName() == null || mContact.getContactName().equals("") ){
                     Toast.makeText(this, "Name can't be empty.", Toast.LENGTH_SHORT).show();
                 } else if (mContact.getContactPhoneNumber() == null || mContact.getContactPhoneNumber().equals("")){
