@@ -7,12 +7,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.telephony.IccOpenLogicalChannelResponse;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -152,7 +154,6 @@ public class ContactList extends AppCompatActivity {
                     //自动获取焦点的实现
                     etSearch.setVisibility(View.VISIBLE);
                     getSupportActionBar().setDisplayShowTitleEnabled(false);
-
                     mSearch = false;
                 } else {
                     item.setIcon(R.drawable.ic_search_black_24dp);
@@ -162,7 +163,6 @@ public class ContactList extends AppCompatActivity {
                     inputMethodManager.hideSoftInputFromWindow(ContactList.this.getCurrentFocus().getWindowToken(),
                             InputMethodManager.HIDE_NOT_ALWAYS);
                     getSupportActionBar().setDisplayShowTitleEnabled(true);
-
                     mContactArrayList.clear();
                     mContactArrayList = DataSupport.order("contactName asc").find(Contact.class);
                     linearLayoutManager = new LinearLayoutManager(this);
@@ -242,6 +242,7 @@ public class ContactList extends AppCompatActivity {
                             }
                         }
                         if (saveChoice[1]){
+
                         }
                     }
                 });

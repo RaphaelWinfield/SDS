@@ -21,7 +21,7 @@
     <application
         android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -55,11 +55,16 @@
             android:name=".EditContact"
             android:label="@string/title_activity_edit_contact"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ContactAddress" />
+        <activity android:name=".ContactAddress" />
         <activity
             android:name=".YellowPages"
-            android:label="Yellow Pages"></activity>
+            android:label="Yellow Pages" />
+
+        <provider
+            android:name=".SDSProvider"
+            android:authorities="com.example.raphaelwinfield.sixdegreesofseparation.provider"
+            android:enabled="true"
+            android:exported="true"></provider>
     </application>
 
 </manifest>

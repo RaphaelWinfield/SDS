@@ -53,7 +53,12 @@ public class ContactInfo extends AppCompatActivity {
         ctContactInfoName.setTitle(mContact.getContactName());
         tvContactInfoPhoneNumber.setText("Phone Number: " + mContact.getContactPhoneNumber());
         tvContactInfoAddress.setText("Address: " + mContact.getContactAdress());
-        tvContactInfoRingtone.setText("Ringtone: " + mContact.getContactRingtone());
+        if ( mContact.getContactRingtone() == null || mContact.getContactRingtone().equals("") ){
+            tvContactInfoRingtone.setVisibility(View.GONE);
+        } else{
+            tvContactInfoRingtone.setVisibility(View.VISIBLE);
+            tvContactInfoRingtone.setText("Ringtone: " + mContact.getContactRingtone());
+        }
         ivContactInfoPhoto.setImageURI(Uri.parse(mContact.getContactPhoto()));
 
 
@@ -124,7 +129,12 @@ public class ContactInfo extends AppCompatActivity {
                     ctContactInfoName.setTitle(mContact.getContactName());
                     tvContactInfoPhoneNumber.setText("Phone Number: " + mContact.getContactPhoneNumber());
                     tvContactInfoAddress.setText("Address: " + mContact.getContactAdress());
-                    tvContactInfoRingtone.setText("Ringtone: " + mContact.getContactRingtone());
+                    if ( mContact.getContactRingtone() == null || mContact.getContactRingtone().equals("") ){
+                        tvContactInfoRingtone.setVisibility(View.GONE);
+                    } else{
+                        tvContactInfoRingtone.setVisibility(View.VISIBLE);
+                        tvContactInfoRingtone.setText("Ringtone: " + mContact.getContactRingtone());
+                    }
                     ivContactInfoPhoto.setImageURI(Uri.parse(mContact.getContactPhoto()));
                     //只有先改名后换图才能立即显示
                 }
