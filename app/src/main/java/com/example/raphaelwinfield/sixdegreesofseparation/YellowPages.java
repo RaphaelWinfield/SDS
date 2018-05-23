@@ -15,23 +15,26 @@ public class YellowPages extends AppCompatActivity {
         setContentView(R.layout.activity_yellow_pages);
         WebView yellowPages = (WebView) findViewById(R.id.wv_yellow_pages);
         yellowPages.getSettings().setJavaScriptEnabled(true);
+        yellowPages.loadUrl("http://m.114best.com");
         yellowPages.setWebViewClient(new WebViewClient(){
             @Override
             public boolean shouldOverrideUrlLoading(WebView wv, String url) {
                 if(url == null) return false;
                 try {
-                    if(url.startsWith("tel:")){   //其他自定义的scheme，如微信、支付宝
+                    if(url.startsWith("tel:")){   //处理其他scheme，如微信、支付宝
                         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                         startActivity(intent);
                         return true;
                     }
-                } catch (Exception e) { //防止crash (如果手机上没有安装处理某个scheme开头的url的APP, 会导致crash)
-                    return true;//没有安装该app时，返回true，表示拦截自定义链接，但不跳转，避免弹出上面的错误页面
+                } catch (Exception e) {
+                    //防止crash，即如果手机上没有安装处理某个scheme开头的url的APP, 会导致crash
+                    //返回true表示拦截自定义链接不跳转，避免弹出上面的错误页面
+                    return true;
                 }
-                wv.loadUrl(url);//处理http和https开头的url
+                wv.loadUrl(url);//正常处理http和https开头的url
                 return true;
             }
         });
-        yellowPages.loadUrl("http://m.114best.com");
+
     }
 }

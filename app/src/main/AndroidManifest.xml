@@ -15,7 +15,6 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
@@ -38,10 +37,10 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".AddContact"
             android:label="@string/title_activity_add_contact"
@@ -55,7 +54,8 @@
             android:name=".EditContact"
             android:label="@string/title_activity_edit_contact"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ContactAddress" />
+        <activity
+            android:name=".ContactAddress" />
         <activity
             android:name=".YellowPages"
             android:label="Yellow Pages" />
@@ -66,5 +66,4 @@
             android:enabled="true"
             android:exported="true"></provider>
     </application>
-
 </manifest>

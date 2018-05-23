@@ -90,6 +90,7 @@ public class Contact extends DataSupport implements Parcelable {
         @Override
         public Contact createFromParcel(Parcel source) {
             Contact contact = new Contact();
+            //注意读写顺序一致
             contact.contactId = source.readString();
             contact.contactName = source.readString();
             contact.contactPhoneNumber = source.readString();

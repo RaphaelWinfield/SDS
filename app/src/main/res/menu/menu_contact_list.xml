@@ -8,10 +8,10 @@
         android:title="Search"
         app:showAsAction="always"  />
     <item
-    android:id="@+id/action_yellow_pages"
-    android:orderInCategory="100"
-    android:title="Yellow Pages"
-    app:showAsAction="never" />
+        android:id="@+id/action_yellow_pages"
+        android:orderInCategory="100"
+        android:title="Yellow Pages"
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_save"
         android:orderInCategory="100"
