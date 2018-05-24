@@ -1,16 +1,10 @@
 package com.example.raphaelwinfield.sixdegreesofseparation;
 
 import android.app.AlertDialog;
-import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Environment;
-import android.provider.DocumentsContract;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,13 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.raphaelwinfield.sixdegreesofseparation.db.Contact;
 
 import org.litepal.crud.DataSupport;
 
-import java.io.File;
 import java.util.List;
 
 public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.ViewHolder> {
@@ -55,8 +47,9 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).
                 inflate(R.layout.item_contact_list, parent, false);
-        ViewHolder holder = new ViewHolder(view);   //书上加了final关键字
+        ViewHolder holder = new ViewHolder(view);
 
+        //单点实现查看具体信息
         holder.itemView.setOnClickListener( v -> {
             int position = holder.getAdapterPosition();
             Contact contact = mContactArrayList.get(position);
@@ -64,9 +57,11 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
             intent.putExtra("ContactInfo",contact);
             mContactList.startActivity(intent);
         });
+        //长按实现删除联系人
         holder.itemView.setOnLongClickListener(v -> {
             int position = holder.getAdapterPosition();
             Contact contact = mContactArrayList.get(position);
+            //确认删除提示框
             AlertDialog.Builder deleteWarning = new AlertDialog.Builder(mContext);
             deleteWarning.setIcon(R.drawable.ic_delete_black_24dp);
             deleteWarning.setTitle("Delete");
@@ -94,10 +89,10 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Contact contact = mContactArrayList.get(position);
         holder.mTextView.setText(contact.getContactName());
-        /*Bitmap bitmap = BitmapFactory.decodeFile(contact.getContactPhoto());
+        /*对于随机图片无法压缩
+        Bitmap bitmap = BitmapFactory.decodeFile(contact.getContactPhoto());
         holder.mImageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 100, 100, true));*/
         holder.mImageView.setImageURI(Uri.parse(contact.getContactPhoto()));
-        //对于随机图片无法压缩
     }
 
     @Override

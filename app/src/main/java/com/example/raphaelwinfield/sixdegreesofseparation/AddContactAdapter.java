@@ -65,8 +65,9 @@ public class AddContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ImageViewHolder) {
             ((ImageViewHolder) holder).mImageView.setImageResource(R.drawable.ic_add_black_24dp);
-            mAddContact.setImageView(((ImageViewHolder) holder).getImageView());
+            mAddContact.setImageView(((ImageViewHolder) holder).getImageView());//AddContact中需要使用此ImageView
             ((ImageViewHolder) holder).mImageView.setOnClickListener(v->{
+                //头像添加方式提示框
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                 builder.setIcon(R.drawable.ic_insert_photo_black_24dp);
                 builder.setTitle("Personal Photo");
@@ -77,10 +78,12 @@ public class AddContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     public void onClick(DialogInterface dialog, int which)
                     {
                         switch (which){
+                            //随机头像
                             case 0:
                                 mContact.setContactPhoto("android.resource://com.example.raphaelwinfield.sixdegreesofseparation/drawable/photo_"+ String.valueOf(new Random().nextInt(8) + 1 ));
                                 ((ImageViewHolder) holder).mImageView.setImageURI(Uri.parse(mContact.getContactPhoto()));
                                 break;
+                            //拍照头像
                             case 1:
                                 if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                                     ActivityCompat.requestPermissions(mAddContact, new String[]{ Manifest.permission.CAMERA }, mAddContact.TAKE_PHOTO);
@@ -99,8 +102,10 @@ public class AddContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                     intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(outputImage));
                                     mAddContact.startActivityForResult(intent, mAddContact.TAKE_PHOTO);
                                     mAddContact.setImageUri(Uri.fromFile(outputImage));
+                                    //outputImage.delete(); 此处无法删除图片
                                 }
                                 break;
+                            //图库头像
                             case 2:
                                 if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                                     ActivityCompat.requestPermissions(mAddContact, new String[]{ Manifest.permission. WRITE_EXTERNAL_STORAGE }, mAddContact.CHOOSE_PHOTO);
@@ -120,9 +125,6 @@ public class AddContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         } else if (holder instanceof TextViewHolder) {
             ((TextViewHolder) holder).mTextView.setText(mTitles[position]);
             ((TextViewHolder) holder).mEditText.setHint(mTitles[position]);
-            /*if (((TextViewHolder) holder).mEditText.getTag() instanceof TextWatcher) {
-                ((TextViewHolder) holder).mEditText.removeTextChangedListener((TextWatcher) holder.mEditText.getTag());
-            }*/
             TextWatcher watcher = new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -185,7 +187,6 @@ public class AddContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public static class TextViewHolder extends RecyclerView.ViewHolder {
-
         TextView mTextView;
         EditText mEditText;
 

@@ -17,7 +17,6 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -44,7 +43,7 @@ public class EditContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         mTitles = titles;
         mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
-        mContact = contact;
+        mContact = contact;//传入contact数据进行编辑
         mEditContact = editContact;
     }
 
@@ -94,11 +93,11 @@ public class EditContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }
-                                    // 启动相机程序
                                     Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
                                     intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(outputImage));
                                     mEditContact.startActivityForResult(intent, mEditContact.TAKE_PHOTO);
                                     mEditContact.setImageUri(Uri.fromFile(outputImage));
+                                    outputImage.delete();
                                 }
                                 break;
                             case 2:
@@ -121,6 +120,7 @@ public class EditContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             });
         } else if (holder instanceof TextViewHolder) {
             ((TextViewHolder) holder).mTextView.setText(mTitles[position]);
+            //显示原联系人信息
             switch (position) {
                 case 1:
                     ((TextViewHolder) holder).mEditText.setText(mContact.getContactName());
@@ -137,9 +137,6 @@ public class EditContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 default:
                     break;
             }
-            /*if (((TextViewHolder) holder).mEditText.getTag() instanceof TextWatcher) {
-                ((TextViewHolder) holder).mEditText.removeTextChangedListener((TextWatcher) holder.mEditText.getTag());
-            }*/
             TextWatcher watcher = new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -149,6 +146,7 @@ public class EditContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                 @Override
                 public void afterTextChanged(Editable s) {
+                    //保存修改后联系人信息
                     switch (position) {
                         case 1:
                             mContact.setContactName(((TextViewHolder) holder).mEditText.getText().toString());

@@ -2,14 +2,12 @@ package com.example.raphaelwinfield.sixdegreesofseparation;
 
 import android.app.AlertDialog;
 import android.content.ContentUris;
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -20,7 +18,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -48,7 +45,6 @@ public class AddContact extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_contact);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_add_contact);
         setSupportActionBar(toolbar);
 
@@ -85,6 +81,7 @@ public class AddContact extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         switch(id) {
+            //点击确定按钮
             case R.id.ic_done:
                 if ( mContact.getContactName() == null || mContact.getContactName().equals("") ){
                     Toast.makeText(this, "Name can't be empty.", Toast.LENGTH_SHORT).show();
@@ -93,6 +90,7 @@ public class AddContact extends AppCompatActivity {
                 } else if (isNumeric(mContact.getContactPhoneNumber())){
                     mContact.setContactId();
                     if (mContact.getContactPhoto() == null){
+                        //随机头像
                         mContact.setContactPhoto(
                                 "android.resource://com.example.raphaelwinfield.sixdegreesofseparation/drawable/photo_"
                                         + String.valueOf(new Random().nextInt(8) + 1 ));
@@ -104,10 +102,12 @@ public class AddContact extends AppCompatActivity {
                     Toast.makeText(this, "PhoneNumber must be number.", Toast.LENGTH_SHORT).show();
                 }
                 break;
+            //点击关闭按钮
             case R.id.ic_close:
-                finish();
+                finish();//退出添加联系人
                 break;
             default:
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -126,6 +126,7 @@ public class AddContact extends AppCompatActivity {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    //启动截图程序
                     Uri cropUri = Uri.fromFile(cropImage);
                     Intent intent = new Intent("com.android.camera.action.CROP");
                     intent.setDataAndType(mImageUri, "image/*");
@@ -158,13 +159,14 @@ public class AddContact extends AppCompatActivity {
                         imagePath = uri.getPath();
                     }
                     if (imagePath != null) {
+                        //图片写入APP数据文件夹中
                         Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
                         mImageView.setImageBitmap(bitmap);
                         try {
                             mContact.setContactPhoto("/data/data/com.example.raphaelwinfield.sixdegreesofseparation/files/"
                                     + mContact.getContactName() + "_" + mContact.getContactPhoneNumber());
                             File oldfile = new File(imagePath);
-                            InputStream inputStream = new FileInputStream(oldfile); //读入原文件
+                            InputStream inputStream = new FileInputStream(oldfile);
                             FileOutputStream fileOutputStream = new FileOutputStream(mContact.getContactPhoto());
                             byte[] buffer = new byte[1024];
                             while ( inputStream.read(buffer) != -1) {
@@ -203,6 +205,7 @@ public class AddContact extends AppCompatActivity {
                         imagePath = uri.getPath();
                     }
                     if (imagePath != null) {
+                        //图片写入APP数据文件夹中
                         Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
                         mImageView.setImageBitmap(bitmap);
                         try {
@@ -220,16 +223,16 @@ public class AddContact extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                         }
-                    }// 根据图片路径显示图片
+                    }
                 break;
             default:
                 break;
         }
     }
 
+    // 通过Uri和selection来获取真实的图片路径
     private String getImagePath(Uri uri, String selection) {
         String path = null;
-        // 通过Uri和selection来获取真实的图片路径
         Cursor cursor = getContentResolver().query(uri, null, selection, null, null);
         if (cursor != null) {
             if (cursor.moveToFirst()) {
@@ -271,6 +274,7 @@ public class AddContact extends AppCompatActivity {
         mImageUri = imageUri;
     }
 
+    //后退提示框
     @Override
     public void onBackPressed() {
         AlertDialog.Builder saveWarning = new AlertDialog.Builder(AddContact.this);
@@ -290,6 +294,7 @@ public class AddContact extends AppCompatActivity {
         saveWarning.show();
     }
 
+    //判断字符串是否仅有数字构成
     public boolean isNumeric(String str) {
         for (int i = 0; i < str.length(); i++) {
             if (!Character.isDigit(str.charAt(i))){

@@ -2,7 +2,6 @@ package com.example.raphaelwinfield.sixdegreesofseparation;
 
 import android.app.AlertDialog;
 import android.content.ContentUris;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -19,10 +18,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -33,7 +30,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Random;
 
 public class EditContact extends AppCompatActivity {
     public static final int TAKE_PHOTO = 1;
@@ -41,7 +37,6 @@ public class EditContact extends AppCompatActivity {
     public static final int CROP_PHOTO = 3;
     private String[] mTitle = { null, "Name", "PhoneNumber", "Address", "Ringtone"};
     private Contact mContact;
-
     private ImageView mImageView;
     private Uri mImageUri;
 
@@ -49,7 +44,6 @@ public class EditContact extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_contact);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_edit_contact);
         setSupportActionBar(toolbar);
 
@@ -208,7 +202,7 @@ public class EditContact extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
-                }// 根据图片路径显示图片
+                }
                 break;
             default:
                 break;
@@ -217,7 +211,6 @@ public class EditContact extends AppCompatActivity {
 
     private String getImagePath(Uri uri, String selection) {
         String path = null;
-        // 通过Uri和selection来获取真实的图片路径
         Cursor cursor = getContentResolver().query(uri, null, selection, null, null);
         if (cursor != null) {
             if (cursor.moveToFirst()) {

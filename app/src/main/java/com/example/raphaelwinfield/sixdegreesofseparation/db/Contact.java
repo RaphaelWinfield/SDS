@@ -14,6 +14,7 @@ public class Contact extends DataSupport implements Parcelable {
     private String contactPhoto;
     private String contactRingtone;
 
+    //随机生成两位字母ID
     public void setContactId() {
         String str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         StringBuffer sb = new StringBuffer();
